@@ -9,6 +9,11 @@ if __name__ == '__main__':
         dbase = db.connect('Hostel.db')
         cursor = dbase.cursor()
 
+        # with open('loginpwd_create_table.sql', 'r') as sql_file:
+        #     sql_script = sql_file.read()
+        # cursor.execute(sql_script)
+        # dbase.commit()
+
 
     except db.Error as error:
         print('Connection error occurred')
