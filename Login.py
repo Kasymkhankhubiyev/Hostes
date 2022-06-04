@@ -4,6 +4,8 @@ from tkinter import ttk
 import sqlite3 as db
 from tkinter import messagebox
 
+import Registration
+
 class Login:
     def __init__(self, dbase, window):
         self.dbase = dbase
@@ -19,16 +21,31 @@ class Login:
         self.password.place(x=300, y=190)
         tk.Button(self.win, command=self.check_loginpwd, text='Enter', font=('Arial', 14)).place(x=350, y=250)
 
+    def clear_window(self):
+        slaves = self.win.place_slaves()
+        for slave in slaves:
+            slave.destroy()
+
+        self.win.update()
+
+    def start_main(self):
+        commands_line = ttk.Notebook(self.win)
+        registration_table = Registration.Registration_Table(window=self.win, dbase=self.dbase, notebook=commands_line)
+        commands_line.pack()
+
     def check_loginpwd(self):
         """
         Проверяем наличие зарегистрированного пользователя с указанным логином и паролем
+        Если такой есть, заполняем пользователя и возвращаем в main
         """
         if self.check_input():
             result = self.get_passwort()
             if len(result) > 0:
                 if self.password.get() == result[0][0]:
                     access = self.get_access_level()
-                    self.user = User.User(login=self.login.get(), access=access, )
+                    self.user = User.User(login=self.login.get(), access=access, uid=self.get_uid())
+                    self.clear_window()
+                    self.start_main()
                 else:
                     messagebox.showerror(title='Упс, ошибка...', message='неверный Логин/Пароль.')
                     self.login.delete(0, tk.END)
@@ -74,7 +91,7 @@ class Login:
         :return:
         """
         cursor = self.dbase.cursor()
-        sql = """SELECT id FROM people WHERE user_access_level > 0 AND user_login = ? """ # заменить id на uid
+        sql = """SELECT user_id FROM people WHERE user_access_level > 0 AND user_login = ? """ # заменить id на uid
         cursor.execute(sql, [self.login.get()])  # implement funtion to get login
         self.dbase.commit()
         result = cursor.fetchall()
