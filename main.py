@@ -30,27 +30,17 @@ if __name__ == '__main__':
     try:
         dbase = db.connect('Hostel.db')
         cursor = dbase.cursor()
-        user = User.User()
 
         # with open('loginpwd_create_table.sql', 'r') as sql_file:
         #     sql_script = sql_file.read()
         # cursor.execute(sql_script)
         # dbase.commit()
 
-        #win = create_window()
-        win = tk.Tk()
-        win.title("RNBCoffee")
-        w = win.winfo_screenwidth()
-        h = win.winfo_screenheight()
-        w //= 2  # центрируем
-        h //= 2
-        w -= 350  # переносим левый верхний угол
-        h -= 250
-        win.geometry("700x500+{}+{}".format(w, h))
-        win.protocol('WW_DELETE_WINDOW', on_closing)
+
+        win = create_window()
 
         login = Login.Login(dbase, win)
-        #win = login.log_into_system()
+        user = login.log_into_system()
 
         win.mainloop()
 

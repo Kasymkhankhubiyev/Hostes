@@ -1,5 +1,5 @@
 CREATE TABLE people(
-id INTEGER PRIMARY KEY,
+user_id INTEGER PRIMARY KEY,
 user_name TEXT NOT NULL,
 user_secondname TEXT NOT NULL,
 user_iid TEXT NOT NULL UNIQUE,
