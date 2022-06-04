@@ -19,11 +19,11 @@ def create_window():
     h = window.winfo_screenheight()
     w //= 2  # центрируем
     h //= 2
-    w -= 350  # переносим левый верхний угол
-    h -= 250
-    window.geometry("700x500+{}+{}".format(w, h))
-    # icon = tk.PhotoImage(file='rnb.png')
-    # window.iconphoto(False, icon)
+    w -= 450  # переносим левый верхний угол
+    h -= 350
+    window.geometry("900x700+{}+{}".format(w, h))
+    icon = tk.PhotoImage(file='Hostel Arzu.png')
+    window.iconphoto(False, icon)
     return window
 
 if __name__ == '__main__':
@@ -36,8 +36,8 @@ if __name__ == '__main__':
         # cursor.execute(sql_script)
         # dbase.commit()
 
-
         win = create_window()
+        win.protocol('WM_DELETE_WINDOW', on_closing)
 
         login = Login.Login(dbase, win)
         user = login.log_into_system()

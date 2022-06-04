@@ -26,7 +26,7 @@ class Login:
         if self.check_input():
             result = self.get_passwort()
             if len(result) > 0:
-                if self.password.get == result[0][0]:
+                if self.password.get() == result[0][0]:
                     access = self.get_access_level()
                     self.user = User.User(login=self.login.get(), access=access, )
                 else:
@@ -65,7 +65,7 @@ class Login:
         self.dbase.commit()
         result = cursor.fetchall()
         cursor.close()
-        return result[0][0]
+        return result
 
 
     def get_uid(self):
