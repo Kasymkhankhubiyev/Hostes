@@ -12,14 +12,21 @@ class Login:
         self.user = User.User()
         self.win = window
 
-        tk.Label(self.win, text='login', font=('Arial', 14)).place(x=200, y=150)
-        tk.Label(self.win, text='password', font=('Arial', 14)).place(x=200, y=190)
+        w = window.winfo_screenwidth()
+        h = window.winfo_screenheight()
+        w //= 2  # центрируем
+        h //= 2
+        w -= 200  # переносим левый верхний угол
+        h -= 100
 
-        self.login = tk.Entry(self.win, font=('Arial', 14))
-        self.login.place(x=300, y=150)
-        self.password = tk.Entry(self.win, show='*', font=('Arial', 14))
-        self.password.place(x=300, y=190)
-        tk.Button(self.win, command=self.check_loginpwd, text='Enter', font=('Arial', 14)).place(x=350, y=250)
+        tk.Label(self.win, text='Login', font=('Arial', 17)).place(x=w, y=h) #place(x=200, y=150)
+        tk.Label(self.win, text='Password', font=('Arial', 17)).place(x=w, y=h+40) #place(x=200, y=190)
+
+        self.login = tk.Entry(self.win, font=('Arial', 17))
+        self.login.place(x=w+120, y=h) #place(x=300, y=150)
+        self.password = tk.Entry(self.win, show='*', font=('Arial', 17))
+        self.password.place(x=w+120, y=h+40) #place(x=300, y=190)
+        tk.Button(self.win, command=self.check_loginpwd, text='Enter', font=('Arial', 17)).place(x=w+150, y=h+100) #place(x=350, y=250)
 
     def clear_window(self):
         slaves = self.win.place_slaves()

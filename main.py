@@ -27,13 +27,15 @@ def create_window():
     """
     window = tk.Tk()
     window.title("RNBCoffee")
+    # window.attributes('-fullscreen', True)
     w = window.winfo_screenwidth()
     h = window.winfo_screenheight()
-    w //= 2  # центрируем
-    h //= 2
-    w -= 450  # переносим левый верхний угол
-    h -= 350
-    window.geometry("900x700+{}+{}".format(w, h))
+    # w //= 2  # центрируем
+    # h //= 2
+    # w -= 450  # переносим левый верхний угол
+    # h -= 350
+    # window.geometry("900x700")
+    window.geometry("{}x{}".format(w, h))
     icon = tk.PhotoImage(file='Hostel Arzu.png')
     window.iconphoto(False, icon)
     return window
