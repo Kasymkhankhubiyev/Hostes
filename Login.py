@@ -36,6 +36,10 @@ class Login:
         self.win.update()
 
     def start_main(self):
+        """
+        Надо будет здесь прописывать все классы, которые появляются
+        :return:
+        """
         commands_line = ttk.Notebook(self.win)
         registration_table = Registration.Registration_Table(window=self.win, dbase=self.dbase, notebook=commands_line)
         commands_line.pack()
@@ -45,23 +49,26 @@ class Login:
         Проверяем наличие зарегистрированного пользователя с указанным логином и паролем
         Если такой есть, заполняем пользователя и возвращаем в main
         """
-        if self.check_input():
-            result = self.get_passwort()
-            if len(result) > 0:
-                if self.password.get() == result[0][0]:
-                    access = self.get_access_level()
-                    self.user = User.User(login=self.login.get(), access=access, uid=self.get_uid())
-                    self.clear_window()
-                    self.start_main()
-                else:
-                    messagebox.showerror(title='Упс, ошибка...', message='неверный Логин/Пароль.')
-                    self.login.delete(0, tk.END)
-                    self.password.delete(0, tk.END)
-            else:
-                messagebox.showerror(title='Упс, ошибка...', message='неверный Логин/Пароль.')
-                self.login.delete(0, tk.END)
-                self.password.delete(0, tk.END)
-        else: pass
+        self.user = User.User(login='kaseke', access=2, uid=1)
+        self.clear_window()
+        self.start_main()
+        # if self.check_input():
+        #     result = self.get_passwort()
+        #     if len(result) > 0:
+        #         if self.password.get() == result[0][0]:
+        #             access = self.get_access_level()
+        #             self.user = User.User(login=self.login.get(), access=access, uid=self.get_uid())
+        #             self.clear_window()
+        #             self.start_main()
+        #         else:
+        #             messagebox.showerror(title='Упс, ошибка...', message='неверный Логин/Пароль.')
+        #             self.login.delete(0, tk.END)
+        #             self.password.delete(0, tk.END)
+        #     else:
+        #         messagebox.showerror(title='Упс, ошибка...', message='неверный Логин/Пароль.')
+        #         self.login.delete(0, tk.END)
+        #         self.password.delete(0, tk.END)
+        # else: pass
         
         
     def get_access_level(self):
