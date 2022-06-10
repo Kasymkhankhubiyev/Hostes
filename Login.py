@@ -38,11 +38,13 @@ class Login:
     def start_main(self):
         """
         Надо будет здесь прописывать все классы, которые появляются
-        :return:
+        Здесь создаем Notebook, в который прописываем соновные вкладки.
         """
+        s = ttk.Style()
+        s.configure('TNotebook.Tab', font=('URW Gothic L', '17', 'bold'))  # changes font
         commands_line = ttk.Notebook(self.win)
         registration_table = Registration.Registration_Table(window=self.win, dbase=self.dbase, notebook=commands_line)
-        commands_line.pack()
+        commands_line.pack(fill=tk.BOTH, expand=1)
 
     def check_loginpwd(self):
         """

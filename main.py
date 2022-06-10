@@ -57,12 +57,15 @@ if __name__ == '__main__':
         login = Login.Login(dbase, win)
         user = login.log_into_system()
 
-        if user.get_uid() is not None:
-            # s = ttk.Style()
-            # s.configure('TNotebook.Tab', font=('URW Gothic L', '17', 'bold'))
-            commands_line = ttk.Notebook(win)
-            registration_table = Registration.Registration_Table(window=win, dbase=dbase, notebook=commands_line)
-            commands_line.pack()
+        # if user.get_uid() is not None:
+        #     s = ttk.Style()
+        #     s.configure('TNotebook', font=('Helvetica', '17', 'bold'))
+        #     commands_line = ttk.Notebook(win) # , style='My.TNotebook'
+        #     frame1 = tk.Frame(commands_line, width=200, height=100)
+        #     commands_line.add(frame1, text='Frame1')
+        #     registration_table = Registration.Registration_Table(window=win, dbase=dbase, notebook=commands_line)
+        #
+        #     commands_line.grid(row=0, column=0, sticky='nw') # pack(fill=tk.BOTH, expand=1)
 
         win.mainloop()
 
