@@ -44,6 +44,7 @@ class Login:
         s.configure('TNotebook.Tab', font=('URW Gothic L', '17', 'bold'))  # changes font
         commands_line = ttk.Notebook(self.win)
         registration_table = Registration.Registration_Table(window=self.win, dbase=self.dbase, notebook=commands_line)
+
         commands_line.pack(fill=tk.BOTH, expand=1)
 
     def check_loginpwd(self):

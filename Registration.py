@@ -10,6 +10,7 @@ class Registration_Table:
         self.dbase = dbase
         self.reg_table = ttk.Frame(notebook)
         notebook.add(self.reg_table, text='Регистрация')
+        self.draw_reg_table()
         # self.reg_button = tk.Button(self.window, command=self.draw_reg_table, text='Регистрация', font=('Arial', 17))
         # self.reg_button.place(x=10, y=0)
 
@@ -18,6 +19,15 @@ class Registration_Table:
         Рисуем основную вкладку для регистрации клинетов
         :return:
         """
-        pass
+        tk.Label(self.reg_table, font=('Arial', 15), text='ИИН').place(x=10, y=10)
+        tk.Button(self.reg_table, font=('Arial', 12), text='Проверить', command=self.check_iin).place(x=240, y=10)
+        self.iin_entry = tk.Entry(self.reg_table, font=('Arial', 15), width=14)
+        self.iin_entry.place(x=70, y = 10)
         # self.reg_button = tk.Button(self.window, command=self.draw_reg_table, text='Регистрация', font=('Arial', 17))
         # self.reg_button.grid(row=0, column=0)
+
+    def check_iin(self):
+        if self.iin_entry.get() != '' and len(self.iin_entry.get()) == 12:
+            pass
+        else:
+            messagebox.showerror(title='Ошибка ввода.', message=f'Неверно введен ИИН = {self.iin_entry.get()}, \nИИН должен состоять из 12 цифр')
