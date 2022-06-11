@@ -11,6 +11,7 @@ class Registration_Table:
         self.reg_table = ttk.Frame(notebook)
         notebook.add(self.reg_table, text='Регистрация')
         self.draw_reg_table()
+        self.reg_list_widgets = []
         # self.reg_button = tk.Button(self.window, command=self.draw_reg_table, text='Регистрация', font=('Arial', 17))
         # self.reg_button.place(x=10, y=0)
 
