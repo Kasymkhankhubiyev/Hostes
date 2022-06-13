@@ -69,6 +69,7 @@ class Registration_Table:
         """
         for n in range(month_days):
             self.days[n + week_day]['text'] = n + 1
+            self.days[n + week_day]['fg'] = 'black'
             self.days[n + week_day].set_day(n + 1)
             self.days[n + week_day].set_month(self.month)
             self.days[n + week_day].set_year(self.year)
@@ -79,7 +80,9 @@ class Registration_Table:
                 self.days[n + week_day]['state'] = 'disabled'
             else:
                 self.days[n+week_day]['background'] = 'lightgray'
-                if self.year <= now.year and self.month <= now.month and n < now.day:
+                if self.year <= now.year and self.month == now.month and n < now.day:
+                    self.days[n + week_day]['state'] = 'disabled'
+                elif self.year <= now.year and self.month < now.month or self.year < now.year:
                     self.days[n + week_day]['state'] = 'disabled'
                 else:
                     self.days[n + week_day]['state'] = 'normal'
