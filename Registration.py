@@ -18,6 +18,8 @@ class Registration_Table:
         now = datetime.datetime.now()
         self.year = now.year
         self.month = now.month
+        self.btn_index = None
+        self.btn_bg_color = ''
         self.draw_reg_table()
 
         # self.reg_button = tk.Button(self.window, command=self.draw_reg_table, text='Регистрация', font=('Arial', 17))
@@ -73,6 +75,7 @@ class Registration_Table:
             self.days[n + week_day].set_day(n + 1)
             self.days[n + week_day].set_month(self.month)
             self.days[n + week_day].set_year(self.year)
+            self.days[n + week_day].set_index(n + week_day)
 
             now = datetime.datetime.now()
             if self.year == now.year and self.month == now.month and n == now.day:
@@ -80,6 +83,7 @@ class Registration_Table:
                 self.days[n + week_day]['state'] = 'disabled'
             else:
                 self.days[n+week_day]['background'] = 'lightgray'
+                self.days[n + week_day].set_color('lightgray')
                 if self.year <= now.year and self.month == now.month and n < now.day:
                     self.days[n + week_day]['state'] = 'disabled'
                 elif self.year <= now.year and self.month < now.month or self.year < now.year:
@@ -94,7 +98,9 @@ class Registration_Table:
             self.days[week_day - n - 1]['text'] = prew_month_days - n
             self.days[week_day - n - 1]['fg'] = 'gray'
             self.days[week_day - n - 1]['background'] = '#f3f3f3'
+            self.days[week_day - n - 1].set_color('#f3f3f3')
             self.days[week_day - n - 1].set_day(prew_month_days - n)
+            self.days[week_day - n - 1].set_index(week_day - n - 1)
             if self.month == 1:
                 self.days[week_day - n - 1].set_month(12)
                 self.days[week_day - n - 1].set_year(self.year - 1)
@@ -103,9 +109,9 @@ class Registration_Table:
                 self.days[week_day - n - 1].set_year(self.year)
             now = datetime.datetime.now()
             if self.year <= now.year and self.month <= now.month and n < now.day:
-                self.days[n + week_day]['state'] = 'disabled'
+                self.days[week_day - n - 1]['state'] = 'disabled'
             else:
-                self.days[n + week_day]['state'] = 'normal'
+                self.days[week_day - n - 1]['state'] = 'normal'
 
         """
         Заполняем дни из следующего месяца
@@ -114,13 +120,15 @@ class Registration_Table:
             self.days[week_day + month_days + n]['text'] = n+1
             self.days[week_day + month_days + n]['fg'] = 'gray'
             self.days[week_day + month_days + n]['background'] = '#f3f3f3'
+            self.days[week_day + month_days + n].set_color('#f3f3f3')
             self.days[week_day + month_days + n].set_day(n + 1)
+            self.days[week_day + month_days + n].set_index(week_day + month_days + n)
             if self.month == 12:
-                self.days[week_day - n - 1].set_month(1)
-                self.days[week_day - n - 1].set_year(self.year + 1)
+                self.days[week_day + month_days + n].set_month(1)
+                self.days[week_day + month_days + n].set_year(self.year + 1)
             else:
-                self.days[week_day - n - 1].set_month(self.month + 1)
-                self.days[week_day - n - 1].set_year(self.year)
+                self.days[week_day + month_days + n].set_month(self.month + 1)
+                self.days[week_day + month_days + n].set_year(self.year)
 
 
 
@@ -150,6 +158,15 @@ class Registration_Table:
     def reserve_date(self, button):
         print(button.get_day(), button.get_year(), button.get_month())
         print(button.get_date())
+        button['background'] = 'cyan'
+        if self.btn_index is not None:
+            self.days[self.btn_index]['background'] = self.btn_bg_color
+            self.btn_index = button.get_index()
+            self.btn_bg_color = button.get_color()
+        else:
+            self.btn_index = button.get_index()
+            self.btn_bg_color = button.get_color()
+
 
 
 
