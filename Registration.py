@@ -12,8 +12,13 @@ class Registration_Table:
         self.dbase = dbase
         self.reg_table = ttk.Frame(notebook)
         notebook.add(self.reg_table, text='Регистрация')
-        self.draw_reg_table()
+        self.days = []
         self.reg_list_widgets = []
+        now = datetime.datetime.now()
+        self.year = now.year
+        self.month = now.month
+        self.draw_reg_table()
+
         # self.reg_button = tk.Button(self.window, command=self.draw_reg_table, text='Регистрация', font=('Arial', 17))
         # self.reg_button.place(x=10, y=0)
 
@@ -23,6 +28,20 @@ class Registration_Table:
             pass
         else:
             pass
+
+    def prev_month(self):
+        self.month -= 1
+        if self.month == 0:
+            self.month = 12
+            self.year -= 1
+        self.fill_calendar()
+
+    def next_month(self):
+        self.month += 1
+        if self.month == 13:
+            self.month = 1
+            self.year += 1
+        self.fill_calendar()
 
     def is_leap_year(self, year):
         """
@@ -34,22 +53,66 @@ class Registration_Table:
             return True
         else: return False
 
-    def draw_calendar(self, current_y, year=None, month=None):
-        self.reg_canvas = tk.Canvas(self.reg_table, width = 300, height=300, bg='green')
-        tk.Label(self.reg_canvas, text='month', font=('Arial', 10), background='blue').place(x=1, y=1)
-        reg_calendar = calendar.TextCalendar()
-        today_date = datetime.datetime.date(datetime.datetime.now())
-        #print(reg_calendar.pryear(today_date.year))
-        month_cal = reg_calendar.formatmonth(today_date.year, today_date.month, w=0, l=0)
-        print(month_cal)
+    def fill_calendar(self):
 
-        lines = month_cal.split('  ')
-        print(lines)
-        days = month_cal.split()
-        print(days)
+        self.Info_lbl['text'] = calendar.month_name[self.month] + ', ' + str(self.year)
+        month_days = calendar.monthrange(self.year, self.month)[1]
+        if self.month == 1:
+            prew_month_days = calendar.monthrange(self.year-1, 12)[1]
+        else:
+            prew_month_days = calendar.monthrange(self.year, self.month-1)[1]
+        week_day = calendar.monthrange(self.year, self.month)[0]
+
+        """
+        заполняем текущий месяц
+        """
+        for n in range(month_days):
+            self.days[n + week_day]['text'] = n+1
+            self.days[n + week_day]['fg'] = 'black'
+            now = datetime.datetime.now()
+            if self.year == now.year and self.month == now.month and n == now.day:
+                self.days[n+week_day]['background'] = 'green'
+            else:
+                self.days[n + week_day]['background'] = 'lightgray'
+
+        """
+        Заполняем дни из предыдущего месяца
+        """
+        for n in range(week_day):
+            self.days[week_day - n - 1]['text'] = prew_month_days - n
+            self.days[week_day - n - 1]['fg'] = 'gray'
+            self.days[week_day - n - 1]['background'] = '#f3f3f3'
+
+        """
+        Заполняем дни из следующего месяца
+        """
+        for n in range(6*7 - month_days - week_day):
+            self.days[week_day + month_days + n]['text'] = n+1
+            self.days[week_day + month_days + n]['fg'] = 'gray'
+            self.days[week_day + month_days + n]['background'] = '#f3f3f3'
 
 
-        self.reg_canvas.place(x=10, y=current_y)
+    def draw_calendar(self, current_y):
+        self.reg_canvas = tk.Canvas(self.reg_table, width=300, height=300, bg='green')
+        self.prew_btn = tk.Button(self.reg_canvas, text='<', command=self.prev_month)
+        self.prew_btn.grid(row=0, column=0, sticky='nswe')
+        self.next_btn = tk.Button(self.reg_canvas, text='>', command=self.next_month)
+        self.next_btn.grid(row=0, column=6, sticky='nswe')
+        self.Info_lbl = tk.Label(self.reg_canvas, text='0', width=1, height=1, font=('Arial', 16, 'bold'), fg='blue')
+        self.Info_lbl.grid(row=0, column=1, columnspan=5, sticky='nsew')
+
+        for n in range(7):
+            lbl = tk.Label(self.reg_canvas, text=calendar.day_abbr[n], width=1, height=1, font=('Arial', 10), fg='darkblue')
+            lbl.grid(row=1, column=n, sticky='nsew')
+
+        for row in range(6):
+            for col in range(7):
+                lbl = tk.Label(self.reg_canvas, text='0', width=4, height=2, font=('Arial', 16))
+                lbl.grid(row=row+2, column=col, sticky='nsew')
+                self.days.append(lbl)
+        self.fill_calendar()
+
+        self.reg_canvas.place(x = 10, y = current_y)
 
 
     def draw_reg_table(self):
