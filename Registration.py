@@ -68,13 +68,29 @@ class Registration_Table:
         заполняем текущий месяц
         """
         for n in range(month_days):
-            self.days[n + week_day]['text'] = n+1
-            self.days[n + week_day]['fg'] = 'black'
+            self.days[n + week_day]['text'] = n + 1
+            self.days[n + week_day].set_day(n + 1)
+            self.days[n + week_day].set_month(self.month)
+            self.days[n + week_day].set_year(self.year)
+
             now = datetime.datetime.now()
             if self.year == now.year and self.month == now.month and n == now.day:
-                self.days[n+week_day]['background'] = 'green'
+                self.days[n + week_day]['background'] = 'green'
+                self.days[n + week_day]['state'] = 'disabled'
             else:
-                self.days[n + week_day]['background'] = 'lightgray'
+                self.days[n+week_day]['background'] = 'lightgray'
+                if self.year <= now.year and self.month <= now.month and n < now.day:
+                    self.days[n + week_day]['state'] = 'disabled'
+                else:
+                    self.days[n + week_day]['state'] = 'normal'
+        # for n in range(month_days):
+        #     self.days[n + week_day]['text'] = n+1
+        #     self.days[n + week_day]['fg'] = 'black'
+        #     now = datetime.datetime.now()
+        #     if self.year == now.year and self.month == now.month and n == now.day:
+        #         self.days[n+week_day]['background'] = 'green'
+        #     else:
+        #         self.days[n + week_day]['background'] = 'lightgray'
 
         """
         Заполняем дни из предыдущего месяца
@@ -83,6 +99,18 @@ class Registration_Table:
             self.days[week_day - n - 1]['text'] = prew_month_days - n
             self.days[week_day - n - 1]['fg'] = 'gray'
             self.days[week_day - n - 1]['background'] = '#f3f3f3'
+            self.days[week_day - n - 1].set_day(prew_month_days - n)
+            if self.month == 1:
+                self.days[week_day - n - 1].set_month(12)
+                self.days[week_day - n - 1].set_year(self.year - 1)
+            else:
+                self.days[week_day - n - 1].set_month(self.month - 1)
+                self.days[week_day - n - 1].set_year(self.year)
+            now = datetime.datetime.now()
+            if self.year <= now.year and self.month <= now.month and n < now.day:
+                self.days[n + week_day]['state'] = 'disabled'
+            else:
+                self.days[n + week_day]['state'] = 'normal'
 
         """
         Заполняем дни из следующего месяца
@@ -91,6 +119,14 @@ class Registration_Table:
             self.days[week_day + month_days + n]['text'] = n+1
             self.days[week_day + month_days + n]['fg'] = 'gray'
             self.days[week_day + month_days + n]['background'] = '#f3f3f3'
+            self.days[week_day + month_days + n].set_day(n + 1)
+            if self.month == 12:
+                self.days[week_day - n - 1].set_month(1)
+                self.days[week_day - n - 1].set_year(self.year + 1)
+            else:
+                self.days[week_day - n - 1].set_month(self.month + 1)
+                self.days[week_day - n - 1].set_year(self.year)
+
 
 
     def draw_calendar(self, current_y):
@@ -108,9 +144,12 @@ class Registration_Table:
 
         for row in range(6):
             for col in range(7):
-                lbl = tk.Label(self.reg_canvas, text='0', width=4, height=2, font=('Arial', 16))
-                lbl.grid(row=row+2, column=col, sticky='nsew')
-                self.days.append(lbl)
+                btn = mbtn.Mybutton(self.reg_canvas, text='0', width=4, height=2, font=('Arial', 16), year='0', month='0', day='0')
+                btn.grid(row=row+2, column=col, sticky='nsew')
+                self.days.append(btn)
+                # lbl = tk.Label(self.reg_canvas, text='0', width=4, height=2, font=('Arial', 16))
+                # lbl.grid(row=row+2, column=col, sticky='nsew')
+                # self.days.append(lbl)
         self.fill_calendar()
 
         self.reg_canvas.place(x = 10, y = current_y)

@@ -7,6 +7,26 @@ class Mybutton(tk.Button):
         self.day = day
         self.month = month
         self.year = year
+        self.chosen = False
+        self.enable = True
+
+    def set_year(self, year):
+        self.year = year
+
+    def set_month(self, month):
+        self.year = month
+
+    def set_day(self, day):
+        self.year = day
+
+    def desable_btn(self):
+        self.enable = False
+
+    def release_btn(self):
+        self.chosen = False
+
+    def choose_btn(self):
+        self.chosen = True
 
     def get_day(self):
         return self.day
