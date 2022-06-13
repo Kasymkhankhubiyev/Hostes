@@ -57,6 +57,18 @@ class Registration_Table:
 
     def check_iin(self):
         if self.iin_entry.get() != '' and len(self.iin_entry.get()) == 12:
-            pass
+            num = self.iin_entry.get()
+            if self.is_integer(num):
+                pass
+            else:
+                messagebox.showerror(title='Ошибка ввода.', message=f'Неверно введен ИИН = {self.iin_entry.get()}, \nИИН должен состоять только из цифр')
         else:
             messagebox.showerror(title='Ошибка ввода.', message=f'Неверно введен ИИН = {self.iin_entry.get()}, \nИИН должен состоять из 12 цифр')
+
+    def is_integer(self, string):
+        for i in string:
+            if i not in '01234567890':
+                return False
+            else: pass
+
+        return True
