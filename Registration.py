@@ -86,14 +86,6 @@ class Registration_Table:
                     self.days[n + week_day]['state'] = 'disabled'
                 else:
                     self.days[n + week_day]['state'] = 'normal'
-        # for n in range(month_days):
-        #     self.days[n + week_day]['text'] = n+1
-        #     self.days[n + week_day]['fg'] = 'black'
-        #     now = datetime.datetime.now()
-        #     if self.year == now.year and self.month == now.month and n == now.day:
-        #         self.days[n+week_day]['background'] = 'green'
-        #     else:
-        #         self.days[n + week_day]['background'] = 'lightgray'
 
         """
         Заполняем дни из предыдущего месяца
@@ -147,15 +139,19 @@ class Registration_Table:
 
         for row in range(6):
             for col in range(7):
-                btn = mbtn.Mybutton(self.reg_canvas, text='0', width=4, height=2, font=('Arial', 16), year='0', month='0', day='0')
+                btn = mbtn.Mybutton(self.reg_canvas, text='0', width=4, height=2, font=('Arial', 16))
                 btn.grid(row=row+2, column=col, sticky='nsew')
+                btn.config(command=lambda button = btn: self.reserve_date(button))
                 self.days.append(btn)
-                # lbl = tk.Label(self.reg_canvas, text='0', width=4, height=2, font=('Arial', 16))
-                # lbl.grid(row=row+2, column=col, sticky='nsew')
-                # self.days.append(lbl)
         self.fill_calendar()
 
         self.reg_canvas.place(x = 10, y = current_y)
+
+    def reserve_date(self, button):
+        print(button.get_day(), button.get_year(), button.get_month())
+        print(button.get_date())
+
+
 
 
     def draw_reg_table(self):

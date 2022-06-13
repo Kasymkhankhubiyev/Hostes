@@ -2,7 +2,7 @@ import tkinter as tk
 import datetime
 
 class Mybutton(tk.Button):
-    def __init__(self,master, day, month, year, *args, **kwargs):
+    def __init__(self,master, day=None, year=None, month=None, *args, **kwargs):
         super(Mybutton, self).__init__(master, *args, **kwargs)
         self.day = day
         self.month = month
@@ -14,10 +14,10 @@ class Mybutton(tk.Button):
         self.year = year
 
     def set_month(self, month):
-        self.year = month
+        self.month = month
 
     def set_day(self, day):
-        self.year = day
+        self.day = day
 
     def desable_btn(self):
         self.enable = False
