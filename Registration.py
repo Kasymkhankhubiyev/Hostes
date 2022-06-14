@@ -212,7 +212,8 @@ class Registration_Table:
         current_y += 60
 
         self.living_period_lbl = tk.Label(self.reg_table, text='-', width=30, height=2, borderwidth=3, relief=tk.SUNKEN, background='azure', font=('Arial', 15))
-        self.living_period_lbl.place(x=80, y=660)
+        self.living_period_lbl.place(x=90, y=current_y)
+        current_y += 60
 
         self.draw_calendar(current_y)
 
