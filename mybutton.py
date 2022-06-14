@@ -55,4 +55,9 @@ class Mybutton(tk.Button):
         return self.year
 
     def get_date(self):
-        return datetime.date(int(self.year), int(self.month), int(self.day))
+        Months_lib = {1: 'Янв', 2: 'Фев', 3: 'Март', 4: 'Апр', 5: 'Май', 6: 'Июнь', 7: 'Июль', 8: 'Авг', 9: 'Сен', 10: 'Окт', 11: 'Нояб', 12: 'Дек'}
+        month = Months_lib[int(self.month)]
+        due_date = str(self.day) + ' ' + month + ' ' + str(self.year)
+        return due_date, datetime.date(int(self.year), int(self.month), int(self.day))
+
+    #def get

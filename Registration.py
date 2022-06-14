@@ -15,6 +15,7 @@ class Registration_Table:
         notebook.add(self.reg_table, text='Регистрация')
         self.days = []
         self.reg_list_widgets = []
+        self.living_date = None
         now = datetime.datetime.now()
         self.year = now.year
         self.month = now.month
@@ -138,7 +139,7 @@ class Registration_Table:
         графическая реализация календаря с возможностью выбора дня
         :param current_y:
         """
-        self.reg_canvas = tk.Canvas(self.reg_table, width=300, height=300, bg='green')
+        self.reg_canvas = tk.Canvas(self.reg_table, width=300, height=300)
         self.prew_btn = tk.Button(self.reg_canvas, text='<', font=('Arial',17), command=self.prev_month)
         self.prew_btn.grid(row=0, column=0, sticky='nswe')
         self.next_btn = tk.Button(self.reg_canvas, text='>', font=('Arial',17), command=self.next_month)
@@ -158,7 +159,7 @@ class Registration_Table:
                 self.days.append(btn)
         self.fill_calendar()
 
-        self.reg_canvas.place(x = 10, y = current_y)
+        self.reg_canvas.place(x = 70, y = current_y)
 
     def reserve_date(self, button):
         """
@@ -166,8 +167,12 @@ class Registration_Table:
         :param button:
         :return:
         """
-        print(button.get_day(), button.get_year(), button.get_month())
-        print(button.get_date())
+
+        Months_lib = {1: 'Янв', 2: 'Фев', 3: 'Март', 4: 'Апр', 5: 'Май', 6: 'Июнь', 7: 'Июль', 8: 'Авг', 9: 'Сен',
+                      10: 'Окт', 11: 'Нояб', 12: 'Дек'}
+        now = datetime.datetime.now()
+        out_date, self.living_date = button.get_date()
+        self.living_period_lbl['text'] = str(now.day) + ' ' + Months_lib[int(self.month)] + ' ' + str(now.year) + ' - ' + out_date
         button['background'] = 'cyan'
         if self.btn_index is not None:
             self.days[self.btn_index]['background'] = self.btn_bg_color
@@ -206,9 +211,11 @@ class Registration_Table:
         self.secname_entry.place(x=120, y=current_y)
         current_y += 60
 
+        self.living_period_lbl = tk.Label(self.reg_table, text='-', width=30, height=2, borderwidth=3, relief=tk.SUNKEN, background='azure', font=('Arial', 15))
+        self.living_period_lbl.place(x=80, y=660)
+
         self.draw_calendar(current_y)
 
-        self.living_period_lbl = tk.Label(self.reg_table, text='-', width=100, height=2, relief=tk.GROOVE).place(x = 10, y = 1200)
 
 
     def check_iin(self):
