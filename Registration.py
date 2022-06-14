@@ -80,6 +80,7 @@ class Registration_Table:
             now = datetime.datetime.now()
             if self.year == now.year and self.month == now.month and n == now.day:
                 self.days[n + week_day]['background'] = 'green'
+                #  проверка, если время до 12:00, то найм выбирается на текущий день, иначе до 12-ти следующего дня
                 self.days[n + week_day]['state'] = 'disabled'
             else:
                 self.days[n+week_day]['background'] = 'lightgray'
@@ -133,12 +134,16 @@ class Registration_Table:
 
 
     def draw_calendar(self, current_y):
+        """
+        графическая реализация календаря с возможностью выбора дня
+        :param current_y:
+        """
         self.reg_canvas = tk.Canvas(self.reg_table, width=300, height=300, bg='green')
-        self.prew_btn = tk.Button(self.reg_canvas, text='<', command=self.prev_month)
+        self.prew_btn = tk.Button(self.reg_canvas, text='<', font=('Arial',17), command=self.prev_month)
         self.prew_btn.grid(row=0, column=0, sticky='nswe')
-        self.next_btn = tk.Button(self.reg_canvas, text='>', command=self.next_month)
+        self.next_btn = tk.Button(self.reg_canvas, text='>', font=('Arial',17), command=self.next_month)
         self.next_btn.grid(row=0, column=6, sticky='nswe')
-        self.Info_lbl = tk.Label(self.reg_canvas, text='0', width=1, height=1, font=('Arial', 16, 'bold'), fg='blue')
+        self.Info_lbl = tk.Label(self.reg_canvas, text='0', width=1, height=1, font=('Arial', 14, 'bold'), fg='blue')
         self.Info_lbl.grid(row=0, column=1, columnspan=5, sticky='nsew')
 
         for n in range(7):
@@ -147,7 +152,7 @@ class Registration_Table:
 
         for row in range(6):
             for col in range(7):
-                btn = mbtn.Mybutton(self.reg_canvas, text='0', width=4, height=2, font=('Arial', 16))
+                btn = mbtn.Mybutton(self.reg_canvas, text='0', width=4, height=2, font=('Arial', 15))
                 btn.grid(row=row+2, column=col, sticky='nsew')
                 btn.config(command=lambda button = btn: self.reserve_date(button))
                 self.days.append(btn)
@@ -156,6 +161,11 @@ class Registration_Table:
         self.reg_canvas.place(x = 10, y = current_y)
 
     def reserve_date(self, button):
+        """
+        Выбираем дату выезда, дата окончания найма жилья.
+        :param button:
+        :return:
+        """
         print(button.get_day(), button.get_year(), button.get_month())
         print(button.get_date())
         button['background'] = 'cyan'
@@ -166,9 +176,6 @@ class Registration_Table:
         else:
             self.btn_index = button.get_index()
             self.btn_bg_color = button.get_color()
-
-
-
 
 
     def draw_reg_table(self):
@@ -201,8 +208,7 @@ class Registration_Table:
 
         self.draw_calendar(current_y)
 
-        # self.reg_button = tk.Button(self.window, command=self.draw_reg_table, text='Регистрация', font=('Arial', 17))
-        # self.reg_button.grid(row=0, column=0)
+        self.living_period_lbl = tk.Label(self.reg_table, text='-', width=100, height=2, relief=tk.GROOVE).place(x = 10, y = 1200)
 
 
     def check_iin(self):
