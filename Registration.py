@@ -238,9 +238,25 @@ class Registration_Table:
 
         current_y += 60
 
-
+        self.draw_third_line()
 
         self.draw_calendar(current_y)
+
+    def draw_third_line(self):
+        """
+        here we draw elements:
+            room choosing
+            ordering food
+            ordering a towel
+        :return: does not return anything
+        """
+        tk.Label(self.reg_table, text='Комната', font=('Arial', 17)).place(x = 750, y = 180)
+        values = ['1 комната', '2 комната', '3 комната', '4 комната', '5 комната', '6 комната', '7 комната', '8 комната']
+        self.rooms_combobox = ttk.Combobox(self.reg_table, values=values, font=('Arial', 15), state='readonly', width=11)
+        self.rooms_combobox.place(x = 850, y = 180)
+        self.room_canvas = tk.Canvas(self.reg_table, width=300, height=200, background='white')
+        self.room_canvas.place(x = 1020, y = 180)
+
 
 
 
