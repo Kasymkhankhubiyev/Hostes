@@ -3,9 +3,11 @@ import tkinter as tk
 from tkinter import ttk
 import sqlite3 as db
 from tkinter import messagebox
+from rooms_visual import *
 import calendar
 import datetime
 import mybutton as mbtn
+
 
 class Registration_Table:
     def __init__(self, window, dbase, notebook):
@@ -281,10 +283,13 @@ class Registration_Table:
         values = ['1 комната', '2 комната', '3 комната', '4 комната', '5 комната', '6 комната', '7 комната', '8 комната']
         self.rooms_combobox = ttk.Combobox(self.reg_table, values=values, font=('Arial', 15), state='readonly', width=11)
         self.rooms_combobox.place(x = 850, y = 180)
-
+        self.rooms_combobox.bind("<<ComboboxSelected>>", self.draw_selected_room)
 
         self.room_canvas = tk.Canvas(self.reg_table, width=300, height=200, background='white')
         self.room_canvas.place(x = 1020, y = 180)
+
+    def draw_selected_room(self, event):
+        drow_room_one(self.room_canvas)
 
 
 
