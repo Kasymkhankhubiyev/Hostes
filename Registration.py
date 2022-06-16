@@ -204,7 +204,7 @@ class Registration_Table:
         out_date, self.living_date = button.get_date()
         self.living_period_lbl['text'] = str(now.day) + ' ' + Months_lib[int(now.month)] + ' ' + str(now.year) + ' - ' + out_date
         delta = self.living_date - datetime.date.today()
-        #delta = datetime.datetime(int(button.get_year()), int(button.get_month()), int(button.get_day())) - now
+
         self.days_amount['text'] = str(delta.days)
         button['background'] = 'cyan'
         if self.btn_index is not None:
@@ -222,7 +222,6 @@ class Registration_Table:
         :return:
         """
         current_y = 10
-        current_x = 10
         tk.Label(self.reg_table, font=('Arial', 17), text='ИИН').place(x=10, y=current_y)
         tk.Button(self.reg_table, font=('Arial', 15), text='Проверить', command=self.check_iin).place(x=280, y=current_y/2)
         self.iin_entry = tk.Entry(self.reg_table, font=('Arial', 17), width=14)
@@ -260,7 +259,7 @@ class Registration_Table:
         self.late_leave_var.set(0)
         self.late_leave_checkbtn = ttk.Checkbutton(self.reg_table, variable=self.late_leave_var, onvalue=1,
                                                       offvalue=0)
-        self.early_arrival_checkbtn.place(x = 500, y = current_y + 65)
+        self.early_arrival_checkbtn.place(x = 500, y  =current_y + 65)
         self.late_leave_checkbtn.place(x = 500, y = current_y + 95)
         tk.Label(self.reg_table, text='Ранний заезд', font=('Arial', 17)).place(x= 520, y=current_y + 60)
         tk.Label(self.reg_table, text='Поздний выезд', font=('Arial', 17)).place(x=520, y=current_y + 90)
@@ -289,6 +288,7 @@ class Registration_Table:
         self.room_canvas.place(x = 1020, y = 180)
 
     def draw_selected_room(self, event):
+
         #draw_room_one(self.room_canvas)
         #draw_room_two(self.room_canvas)
         #draw_room_four(self.room_canvas)

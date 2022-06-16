@@ -130,24 +130,17 @@ def draw_room_seven(canvas):
 
 
 def draw_room_eight(canvas):
-    #
-    btn1 = tk.Button(canvas, text='1A', font=('Arial', 13, 'bold'), background='deep sky blue', fg='black', width=4,
+    # кровать возле окна
+    btn1 = tk.Button(canvas, text='1A', font=('Arial', 13, 'bold'), background='deep sky blue', fg='black', width=8,
                      height=2)
     btn1.place(x=95, y=140)
-    btn2 = tk.Button(canvas, text='1B', font=('Arial', 13, 'bold'), background='orange', fg='black', width=4, height=2)
-    btn2.place(x=145, y=140)
 
-    #
-    btn3 = tk.Button(canvas, text='2A', font=('Arial', 13, 'bold'), background='deep sky blue', fg='black', width=4,
-                     height=2)
-    btn3.place(x=210, y=50)
-    btn4 = tk.Button(canvas, text='2B', font=('Arial', 13, 'bold'), background='orange', fg='black', width=4,
-                      height=2)
-    btn4.place(x=210, y=102)
+    # кровать вертикально
+    btn2 = tk.Button(canvas, text='2A', font=('Arial', 13, 'bold'), background='deep sky blue', fg='black', width=4,
+                     height=4)
+    btn2.place(x=210, y=50)
 
-    #
-    btn5 = tk.Button(canvas, text='3A', font=('Arial', 13, 'bold'), background='deep sky blue', fg='black', width=4,
+    # кровать у входа
+    btn3 = tk.Button(canvas, text='3A', font=('Arial', 13, 'bold'), background='deep sky blue', fg='black', width=8,
                      height=2)
-    btn5.place(x=95, y=10)
-    btn6 = tk.Button(canvas, text='3B', font=('Arial', 13, 'bold'), background='orange', fg='black', width=4, height=2)
-    btn6.place(x=145, y=10)
+    btn3.place(x=95, y=10)
