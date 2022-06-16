@@ -289,7 +289,9 @@ class Registration_Table:
         self.room_canvas.place(x = 1020, y = 180)
 
     def draw_selected_room(self, event):
-        drow_room_one(self.room_canvas)
+        #draw_room_one(self.room_canvas)
+        #draw_room_two(self.room_canvas)
+        draw_room_four(self.room_canvas)
 
 
 
