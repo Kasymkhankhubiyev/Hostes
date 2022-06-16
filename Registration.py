@@ -16,7 +16,7 @@ class Registration_Table:
         self.days = []
         self.reg_list_widgets = []
         self.living_date = None
-        now = datetime.datetime.now()
+        now = datetime.date.today() #datetime.now()
         self.year = now.year
         self.month = now.month
         self.btn_index = None
@@ -78,13 +78,14 @@ class Registration_Table:
             self.days[n + week_day].set_year(self.year)
             self.days[n + week_day].set_index(n + week_day)
 
-            now = datetime.datetime.now()
-            if self.year == now.year and self.month == now.month and n == now.day:
-                self.days[n + week_day]['background'] = 'green'
+            now = datetime.date.today() # datetime.now()
+            if self.year == now.year and self.month == now.month and n + 1 == now.day:
+                self.days[n + week_day]['background'] = 'greenyellow'
                 #  проверка, если время до 12:00, то найм выбирается на текущий день, иначе до 12-ти следующего дня
-                self.days[n + week_day]['state'] = 'disabled'
+                self.days[n + week_day ]['state'] = 'disabled'
+                self.days[n + week_day]['fg'] = 'black'
             else:
-                self.days[n+week_day]['background'] = 'lightgray'
+                self.days[n + week_day]['background'] = 'lightgray'
                 self.days[n + week_day].set_color('lightgray')
                 if self.year <= now.year and self.month == now.month and n < now.day:
                     self.days[n + week_day]['state'] = 'disabled'
@@ -172,7 +173,10 @@ class Registration_Table:
                       10: 'Окт', 11: 'Нояб', 12: 'Дек'}
         now = datetime.datetime.now()
         out_date, self.living_date = button.get_date()
-        self.living_period_lbl['text'] = str(now.day) + ' ' + Months_lib[int(self.month)] + ' ' + str(now.year) + ' - ' + out_date
+        self.living_period_lbl['text'] = str(now.day) + ' ' + Months_lib[int(now.month)] + ' ' + str(now.year) + ' - ' + out_date
+        delta = self.living_date - datetime.date.today()
+        #delta = datetime.datetime(int(button.get_year()), int(button.get_month()), int(button.get_day())) - now
+        self.days_amount['text'] = str(delta.days)
         button['background'] = 'cyan'
         if self.btn_index is not None:
             self.days[self.btn_index]['background'] = self.btn_bg_color
@@ -211,9 +215,30 @@ class Registration_Table:
         self.secname_entry.place(x=120, y=current_y)
         current_y += 60
 
-        self.living_period_lbl = tk.Label(self.reg_table, text='-', width=30, height=2, borderwidth=3, relief=tk.SUNKEN, background='azure', font=('Arial', 15))
+        self.living_period_lbl = tk.Label(self.reg_table, text='-', width=30, height=2, borderwidth=3, relief=tk.SUNKEN, background='white', font=('Arial', 15))
         self.living_period_lbl.place(x=90, y=current_y)
+
+        tk.Label(self.reg_table, text='Кол-во дней', font=('Arial', 15)).place(x = 500, y=current_y)
+        self.days_amount = tk.Label(self.reg_table, text= '', width=4, height=1, relief=tk.SUNKEN, font=('Arial', 12), background='white')
+        self.days_amount.place(x=630, y=current_y)
+
+        self.early_arrival_var = tk.IntVar()
+        self.early_arrival_var.set(0)
+        self.early_arrival_checkbtn = ttk.Checkbutton(self.reg_table, variable=self.early_arrival_var, onvalue=1,
+                                                       offvalue=0)  # command=self.show_checkbtn_state
+
+        self.late_leave_var = tk.IntVar()
+        self.late_leave_var.set(0)
+        self.late_leave_checkbtn = ttk.Checkbutton(self.reg_table, variable=self.late_leave_var, onvalue=1,
+                                                      offvalue=0)
+        self.early_arrival_checkbtn.place(x = 500, y = current_y + 65)
+        self.late_leave_checkbtn.place(x = 500, y = current_y + 95)
+        tk.Label(self.reg_table, text='Ранний заезд', font=('Arial', 17)).place(x= 520, y=current_y + 60)
+        tk.Label(self.reg_table, text='Поздний выезд', font=('Arial', 17)).place(x=520, y=current_y + 90)
+
         current_y += 60
+
+
 
         self.draw_calendar(current_y)
 
