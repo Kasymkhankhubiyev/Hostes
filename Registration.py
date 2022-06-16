@@ -29,9 +29,36 @@ class Registration_Table:
     def show_checkbtn_state(self):
         state = self.checkbtn_var1.get()
         if state == 1:
-            pass
+            lbl1 = tk.Label(self.reg_table, text=' Тел: ', font=('Arial', 15))
+            lbl1.place(x=650, y=10)
+            self.reg_list_widgets.append(lbl1)
+            # var = tk.StringVar()
+            # var.get('+7')
+            self.tel_entry = tk.Entry(self.reg_table, font=('Arial', 15))
+            self.tel_entry.insert(0, ' +7')
+            self.tel_entry.place(x=710, y=10)
+            self.reg_list_widgets.append(self.tel_entry)
+
+            lbl2 = tk.Label(self.reg_table, text=' Email: ', font=('Arial', 15))
+            lbl2.place(x = 850, y = 10)
+            self.reg_list_widgets.append(lbl2)
+            self.email_entry = tk.Entry(self.reg_table, font=('Arial', 15))
+            self.email_entry.place(x=930, y=10)
+            self.reg_list_widgets.append(self.email_entry)
+
+            lbl3 = tk.Label(self.reg_table, text='Иностранный гражданин', font=('Arial', 15))
+            lbl3.place(x=675, y=50)
+            self.reg_list_widgets.append(lbl3)
+
+            self.foreign_cbtn_var = tk.IntVar()
+            self.foreign_cbtn_var.set(0)
+            self.foreign_cbtn_var = ttk.Checkbutton(self.reg_table, variable=self.foreign_cbtn_var, onvalue=1,
+                                                           offvalue=0)
+            self.foreign_cbtn_var.place(x=650, y=55)
+            self.reg_list_widgets.append(self.foreign_cbtn_var)
         else:
-            pass
+            for widget in self.reg_list_widgets:
+                widget.destroy()
 
     def prev_month(self):
         self.month -= 1
@@ -254,6 +281,8 @@ class Registration_Table:
         values = ['1 комната', '2 комната', '3 комната', '4 комната', '5 комната', '6 комната', '7 комната', '8 комната']
         self.rooms_combobox = ttk.Combobox(self.reg_table, values=values, font=('Arial', 15), state='readonly', width=11)
         self.rooms_combobox.place(x = 850, y = 180)
+
+
         self.room_canvas = tk.Canvas(self.reg_table, width=300, height=200, background='white')
         self.room_canvas.place(x = 1020, y = 180)
 
