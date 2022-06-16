@@ -291,7 +291,8 @@ class Registration_Table:
     def draw_selected_room(self, event):
         #draw_room_one(self.room_canvas)
         #draw_room_two(self.room_canvas)
-        draw_room_four(self.room_canvas)
+        #draw_room_four(self.room_canvas)
+        draw_room_seven(self.room_canvas)
 
 
 
