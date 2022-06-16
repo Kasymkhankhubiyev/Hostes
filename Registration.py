@@ -292,7 +292,9 @@ class Registration_Table:
         #draw_room_one(self.room_canvas)
         #draw_room_two(self.room_canvas)
         #draw_room_four(self.room_canvas)
-        draw_room_seven(self.room_canvas)
+        #draw_room_seven(self.room_canvas)
+        draw_room_eight(self.room_canvas)
+
 
 
 
