@@ -34,8 +34,6 @@ class Registration_Table:
             lbl1 = tk.Label(self.reg_table, text=' Тел: ', font=('Arial', 15))
             lbl1.place(x=650, y=10)
             self.reg_list_widgets.append(lbl1)
-            # var = tk.StringVar()
-            # var.get('+7')
             self.tel_entry = tk.Entry(self.reg_table, font=('Arial', 15))
             self.tel_entry.insert(0, ' +7')
             self.tel_entry.place(x=710, y=10)
@@ -289,14 +287,24 @@ class Registration_Table:
 
     def draw_selected_room(self, event):
 
-        #draw_room_one(self.room_canvas)
-        #draw_room_two(self.room_canvas)
-        #draw_room_four(self.room_canvas)
-        #draw_room_seven(self.room_canvas)
-        draw_room_eight(self.room_canvas)
-
-
-
+        room = self.rooms_combobox.get()
+        print(room)
+        if room == '1 комната':
+            draw_room_one(self.room_canvas)
+        elif room == '2 комната':
+            draw_room_two(self.room_canvas)
+        elif room == '3 комната':
+            draw_room_three(self.room_canvas)
+        elif room == '4 комната':
+            draw_room_four(self.room_canvas)
+        elif room == '5 комната':
+            draw_room_five(self.room_canvas)
+        elif room == '6 комната':
+            draw_room_six(self.room_canvas)
+        elif room == '7 комната':
+            draw_room_seven(self.room_canvas)
+        elif room == '8 комната':
+            draw_room_eight(self.room_canvas)
 
 
     def check_iin(self):
@@ -304,6 +312,7 @@ class Registration_Table:
         проверяем наличие указанного ИИН в базе
         :return:
         """
+        #self.reg_table.place_slaves()
         if self.iin_entry.get() != '' and len(self.iin_entry.get()) == 12:
             num = self.iin_entry.get()
             if self.is_integer(num):

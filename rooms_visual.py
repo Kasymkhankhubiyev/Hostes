@@ -3,7 +3,14 @@ import tkinter as tk
 def instructions():
     pass
 
+def clear_canvas(canvas):
+    slaves = canvas.place_slaves()
+    for slave in slaves:
+        slave.destroy()
+
 def draw_room_one(canvas):
+
+    clear_canvas(canvas)
 
     # одноярусная кровать
     btn1 = tk.Button(canvas, text='1A', font=('Arial', 13, 'bold'), background='deep sky blue', fg='black', width=9, height=2)
@@ -23,6 +30,8 @@ def draw_room_one(canvas):
     btn4.place(x=180, y=62)
 
 def draw_room_two(canvas):
+    clear_canvas(canvas)
+
     btn = tk.Button(canvas, text='1A', font=('Arial', 15, 'bold'), background='deep sky blue', fg='black', width=4,
                      height=2)
     btn.place(x=10, y=10)
@@ -31,6 +40,8 @@ def draw_room_two(canvas):
     btn.place(x=10, y=75)
 
 def draw_room_three(canvas):
+    clear_canvas(canvas)
+
     # одноярусная кровать
     btn1 = tk.Button(canvas, text='1A', font=('Arial', 13, 'bold'), background='deep sky blue', fg='black', width=9,
                      height=2)
@@ -52,6 +63,8 @@ def draw_room_three(canvas):
     btn4.place(x=180, y=62)
 
 def draw_room_four(canvas):
+    clear_canvas(canvas)
+
     # двухярусная кровать
     btn1 = tk.Button(canvas, text='1A', font=('Arial', 13, 'bold'), background='deep sky blue', fg='black', width=4,
                      height=2)
@@ -84,12 +97,17 @@ def draw_room_four(canvas):
     btn6.place(x=195, y=120)
 
 def draw_room_five(canvas):
+    clear_canvas(canvas)
+
     pass
 
 def draw_room_six(canvas):
+    clear_canvas(canvas)
+
     pass
 
 def draw_room_seven(canvas):
+    clear_canvas(canvas)
 
     # кровать у входа в комнату
     btn1 = tk.Button(canvas, text='1A', font=('Arial', 13, 'bold'), background='deep sky blue', fg='black', width=4,
@@ -130,6 +148,8 @@ def draw_room_seven(canvas):
 
 
 def draw_room_eight(canvas):
+    clear_canvas(canvas)
+
     # кровать возле окна
     btn1 = tk.Button(canvas, text='1A', font=('Arial', 13, 'bold'), background='deep sky blue', fg='black', width=8,
                      height=2)
