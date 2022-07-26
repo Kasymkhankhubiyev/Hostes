@@ -29,38 +29,46 @@ class Registration_Table:
         # self.reg_button.place(x=10, y=0)
 
     def show_checkbtn_state(self):
+        """
+        Если клиент новый, т.е. нет записи в БД соответствующей ИИН клиента,
+        Хостес устанавливает флажок "Новый клиент" и заполняет следующие поля:
+            телефон (если есть), email (по необходимости) и паспортные данные (опционально)
+        """
         state = self.checkbtn_var1.get()
         if state == 1:
             lbl1 = tk.Label(self.reg_table, text=' Тел: ', font=('Arial', 15))
-            lbl1.place(x=650, y=10)
+            lbl1.place(x=850, y=10)
             self.reg_list_widgets.append(lbl1)
             self.tel_entry = tk.Entry(self.reg_table, font=('Arial', 15))
             self.tel_entry.insert(0, ' +7')
-            self.tel_entry.place(x=710, y=10)
+            self.tel_entry.place(x=910, y=10)
             self.reg_list_widgets.append(self.tel_entry)
 
             lbl2 = tk.Label(self.reg_table, text=' Email: ', font=('Arial', 15))
-            lbl2.place(x = 850, y = 10)
+            lbl2.place(x = 1050, y = 10)
             self.reg_list_widgets.append(lbl2)
             self.email_entry = tk.Entry(self.reg_table, font=('Arial', 15))
-            self.email_entry.place(x=930, y=10)
+            self.email_entry.place(x=1130, y=10)
             self.reg_list_widgets.append(self.email_entry)
 
             lbl3 = tk.Label(self.reg_table, text='Иностранный гражданин', font=('Arial', 15))
-            lbl3.place(x=675, y=50)
+            lbl3.place(x=875, y=50)
             self.reg_list_widgets.append(lbl3)
 
             self.foreign_cbtn_var = tk.IntVar()
             self.foreign_cbtn_var.set(0)
             self.foreign_cbtn_var = ttk.Checkbutton(self.reg_table, variable=self.foreign_cbtn_var, onvalue=1,
                                                            offvalue=0)
-            self.foreign_cbtn_var.place(x=650, y=55)
+            self.foreign_cbtn_var.place(x=850, y=55)
             self.reg_list_widgets.append(self.foreign_cbtn_var)
         else:
+            """
+            Если снять флажок "Новый клиент", соответствующие поля должны быть очищены
+            """
             for widget in self.reg_list_widgets:
                 widget.destroy()
 
-    def prev_month(self):
+    def prev_month(self): 
         self.month -= 1
         if self.month == 0:
             self.month = 12
@@ -224,11 +232,20 @@ class Registration_Table:
         tk.Button(self.reg_table, font=('Arial', 15), text='Проверить', command=self.check_iin).place(x=280, y=current_y/2)
         self.iin_entry = tk.Entry(self.reg_table, font=('Arial', 17), width=14)
         self.iin_entry.place(x=80, y=current_y)
+        
+        """Если клиента нет в БД, то устанавливаем флажок "Новый клиент" """
         self.checkbtn_var1 = tk.IntVar()
         self.checkbtn_var1.set(0)
         self.set_new_client_checkbtn = ttk.Checkbutton(self.reg_table, variable=self.checkbtn_var1, onvalue=1, offvalue=0,command=self.show_checkbtn_state)
-        self.set_new_client_checkbtn.place(x=420, y=current_y * 1.5)
-        tk.Label(self.reg_table, text=' Новый клиент ', font=('Arial', 16), relief=tk.GROOVE).place(x=440, y=current_y)
+        self.set_new_client_checkbtn.place(x=620, y=current_y * 1.5)
+        tk.Label(self.reg_table, text=' Новый клиент ', font=('Arial', 16), relief=tk.GROOVE).place(x=640, y=current_y)
+
+        """Если клиент от Компании, то заносим его в другую БД с указанием компании, продливается ежедневно"""
+        self.checkbtn_company_var = tk.IntVar()
+        self.checkbtn_company_var.set(0)
+        self.set_company_checkbtn = ttk.Checkbutton(self.reg_table, variable=self.checkbtn_company_var, onvalue=1, offvalue=0) #command=self.set_company_context
+        self.set_company_checkbtn.place(x=450,y= current_y * 1.5)
+        tk.Label(self.reg_table, text=' Компания ', font=('Arial', 16), relief=tk.GROOVE).place(x=470, y=current_y)
         current_y += 60
 
         tk.Label(self.reg_table, font=('Arial', 17), text='ИМЯ').place(x=10, y=current_y)
