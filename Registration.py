@@ -243,7 +243,7 @@ class Registration_Table:
         """Если клиент от Компании, то заносим его в другую БД с указанием компании, продливается ежедневно"""
         self.checkbtn_company_var = tk.IntVar()
         self.checkbtn_company_var.set(0)
-        self.set_company_checkbtn = ttk.Checkbutton(self.reg_table, variable=self.checkbtn_company_var, onvalue=1, offvalue=0) #command=self.set_company_context
+        self.set_company_checkbtn = ttk.Checkbutton(self.reg_table, variable=self.checkbtn_company_var, onvalue=1, offvalue=0, command=self.set_company_context)
         self.set_company_checkbtn.place(x=450,y= current_y * 1.5)
         tk.Label(self.reg_table, text=' Компания ', font=('Arial', 16), relief=tk.GROOVE).place(x=470, y=current_y)
         current_y += 60
@@ -284,6 +284,13 @@ class Registration_Table:
         self.draw_third_line()
 
         self.draw_calendar(current_y)
+
+    def set_company_context(self):
+        """
+        Рисуем поля для регистрации корпоративного клиента:
+        название компании
+        """
+        pass
 
     def draw_third_line(self):
         """
