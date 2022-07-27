@@ -288,9 +288,14 @@ class Registration_Table:
     def set_company_context(self):
         """
         Рисуем поля для регистрации корпоративного клиента:
-        название компании
+        название компании выбирается из предложенных, список компаний модерируется администратором с уровем доступа 2
         """
-        pass
+        tk.Label(self.reg_table, text='Компания', font=('Arial', 17)).place(x = 470, y = 10)
+        values = ['1 комната', '2 комната', '3 комната', '4 комната', '5 комната', '6 комната', '7 комната', '8 комната']
+        self.rooms_combobox = ttk.Combobox(self.reg_table, values=values, font=('Arial', 15), state='readonly', width=11)
+        self.rooms_combobox.place(x = 850, y = 180)
+        self.company_name = tk.Entry(self.reg_table, font=('Arial', 16), width=70)
+        self.company_name.place(x=470, y = 10)
 
     def draw_third_line(self):
         """
