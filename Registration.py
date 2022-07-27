@@ -291,11 +291,24 @@ class Registration_Table:
         название компании выбирается из предложенных, список компаний модерируется администратором с уровем доступа 2
         """
         tk.Label(self.reg_table, text='Компания', font=('Arial', 17)).place(x = 470, y = 10)
-        values = ['1 комната', '2 комната', '3 комната', '4 комната', '5 комната', '6 комната', '7 комната', '8 комната']
-        self.rooms_combobox = ttk.Combobox(self.reg_table, values=values, font=('Arial', 15), state='readonly', width=11)
-        self.rooms_combobox.place(x = 850, y = 180)
-        self.company_name = tk.Entry(self.reg_table, font=('Arial', 16), width=70)
-        self.company_name.place(x=470, y = 10)
+
+        #считываем список компаний из базы данных
+        # cursor = self.dbase.cursor()
+        # sql = """SELECT company_name FROM companies"""
+        # cursor.execute(sql)
+        # self.dbase.commit()
+        # results = cursor.fetchall()
+        # values = []
+        # for item in results:  #снимаем список компаний
+        #     print(item[0])
+        #     values.append(item[0])
+
+        #загружаем список компаний пользователю 
+        values = ['Company 1', 'Company 2', 'Company 3']
+        self.companies_combobox = ttk.Combobox(self.reg_table, values=values, font=('Arial', 15), state='readonly', width=11)
+        self.companies_combobox.place(x = 470, y = 70)
+        # self.company_name = tk.Entry(self.reg_table, font=('Arial', 16), width=70)
+        # self.company_name.place(x=470, y = 10)
 
     def draw_third_line(self):
         """
