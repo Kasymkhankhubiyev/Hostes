@@ -3,9 +3,9 @@ from tkinter import messagebox
 from tkinter import ttk
 import sqlite3 as db
 
-import User
-import Login
-import Registration
+import ExtendedClasses.User as User
+import mainModules.Login as Login
+import mainModules.Registration as Registration
 
 def clear_window(window):
     array = window.place_slaves()
