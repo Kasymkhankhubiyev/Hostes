@@ -1,8 +1,11 @@
 import ExtendedClasses.User as User
 import tkinter as tk
-from tkinter import ttk
 import sqlite3 as db
+
 from tkinter import messagebox
+from tkinter import ttk
+
+from helper import clear_window
 
 import mainModules.Registration as Registration
 
@@ -55,6 +58,7 @@ class Login:
         self.user = User.User(login='kaseke', access=2, uid=1)
         self.clear_window()
         self.start_main()
+        # TODO: нужно продумать адекватную функцию регистрации.
         # if self.check_input():
         #     result = self.get_passwort()
         #     if len(result) > 0:
