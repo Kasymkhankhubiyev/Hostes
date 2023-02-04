@@ -16,7 +16,7 @@ if __name__ == '__main__':
         # user = User.User()
 
         win = create_window(window_title='Arzu Hostel', icon_path='media/Hostel Arzu.png')
-        win.protocol('WM_DELETE_WINDOW', on_closing)
+        win.protocol('WM_DELETE_WINDOW', lambda db=dbase, window = win: on_closing(win=window, dbase=db))
 
         login = Login.Login(dbase, win)
         user = login.log_into_system()
